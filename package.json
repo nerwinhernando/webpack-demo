@@ -19,5 +19,8 @@
   "homepage": "https://github.com/nhernando/webpack-demo#readme",
   "devDependencies": {
     "webpack": "^3.6.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
   }
 }
