@@ -20,6 +20,7 @@
   "homepage": "https://github.com/nhernando/webpack-demo#readme",
   "devDependencies": {
     "css-loader": "^0.28.7",
+    "file-loader": "^1.1.4",
     "style-loader": "^0.19.0",
     "webpack": "^3.6.0"
   },
