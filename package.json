@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/nhernando/webpack-demo/issues"
   },
-  "homepage": "https://github.com/nhernando/webpack-demo#readme"
+  "homepage": "https://github.com/nhernando/webpack-demo#readme",
+  "devDependencies": {
+    "webpack": "^3.6.0"
+  }
 }
