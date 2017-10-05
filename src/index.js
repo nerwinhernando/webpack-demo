@@ -1,21 +1,24 @@
 import _ from 'lodash';
-import { cube } from './math.js';
 
-if(process.env.NODE_ENV !== 'production') {
-	console.log('looks like we are in development mode!');
-}
+function component() {
+  var element = document.createElement('div');
+  var button = document.createElement('button');
+  var br = document.createElement('br');
 
-function getComponent() {
-  // Lodash, now imported by this script
-  return import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
-  	var element = document.createElement('div');
+  button.innerHTML = 'Click me and look at the console!';
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  element.appendChild(br);
+  element.appendChild(button);
 
-  	element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  // Note that because a network request is involved, some indication
+  // of loading would need to be shown in a production-level site/app.
+  button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(module => {
+    var print = module.default;
+  
+    print();
+  });
 
-  	return element;
-  }).catch(error => 'An error occurred while loading the component');
-}
+    return element;
+  }
 
-getComponent().then(component => {
-  document.body.appendChild(component);
-})
+document.body.appendChild(component());
