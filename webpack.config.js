@@ -1,66 +1,22 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/index.js'
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: '/dist',
-    hot: true 
-  },
-  module: {
-   rules: [
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+    index: './src/index.js',
+    another: './src/another-module.js'
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'Output Management'
+    new HTMLWebpackPlugin({
+      title: 'Code Splitting'
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new UglifyJSPlugin()
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common' // Specify the common bundle's name.
+    })
   ],
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
-  },
-   module: {
-     rules: [
-       {
-         test: /\.css$/,
-         use: [
-           'style-loader',
-           'css-loader'
-         ]
-       },
-       {
-         test: /\.(png|svg|jpg|gif)$/,
-         use: [
-           'file-loader'
-         ]
-       },
-       {
-         test: /\.(csv|tsv)$/,
-         use: [
-           'csv-loader'
-         ]
-       },
-       {
-         test: /\.xml$/,
-         use: [
-           'xml-loader'
-         ]
-       }
-     ]
-   }
+    path: path.resolve(__dirname, 'dist')
+  }
 };
