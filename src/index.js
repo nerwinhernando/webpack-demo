@@ -5,16 +5,17 @@ if(process.env.NODE_ENV !== 'production') {
 	console.log('looks like we are in development mode!');
 }
 
-function component() {
-  var element = document.createElement('pre');
-
+function getComponent() {
   // Lodash, now imported by this script
-  element.innerHTML = [
-  	'Hello webpack',
-  	'5 cubed is equal to ' + cube(5)
-  	].join('\n\n');
+  return import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
+  	var element = document.createElement('div');
 
-  return element;
+  	element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
+  	return element;
+  }).catch(error => 'An error occurred while loading the component');
 }
 
-document.body.appendChild(component());
+getComponent().then(component => {
+  document.body.appendChild(component);
+})
